@@ -29,20 +29,20 @@ function App() {
 
   // choosing cards
   const handleChoice = (card) => {
-    choiceOne ? setChoiceTwo(card.src) : setChoiceOne(card.src);
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
-
 
   // comparing cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
-      if (choiceOne === choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
         cardsMatched()
-        console.log(choiceOne, choiceTwo)
         resetTurns()
       } else {
         notMatchedCards()
-        resetTurns()
+        setTimeout(() => {
+          resetTurns()
+        }, 2000)
       }
     }
   }, [choiceOne, choiceTwo])
@@ -53,7 +53,7 @@ function App() {
     console.log('you have a match')
     setMemoryCards((prevCards) => {
       return prevCards.map(card => {
-        if(card.src === choiceOne) {
+        if(card.src === choiceOne.src) {
           return {...card, matched: true}
         } else {
           return card
@@ -84,7 +84,7 @@ function App() {
       <p>{turns} turns</p>
       <div className='card-grid' role='grid'>
         {memoryCards.map(card => (
-          <Card key={card.id} card={card} handleChoice={handleChoice} />
+          <Card key={card.id} card={card} handleChoice={handleChoice} flipped={card === choiceOne || card === choiceTwo || card.matched}/>
         ))}
       </div>
     </div>
