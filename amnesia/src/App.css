@@ -14,7 +14,7 @@ button {
   font-size: 1em;
 }
 
-button:hover {
+button:hover:not(.button-card) {
   background: #c23866;
   color: #fff;
 }

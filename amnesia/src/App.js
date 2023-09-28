@@ -16,6 +16,7 @@ function App() {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
+  //const [flipped, setFlipped] = useState(false)
 
   // shuffle cards
   const shuffleCards = () => {
@@ -32,6 +33,15 @@ function App() {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
 
+
+  // flipping cards
+  /* const flipCard = (card) => {
+    if(card === choiceOne || card === choiceTwo || card.matched) {
+      setFlipped(true)
+    }
+  } */
+
+
   // comparing cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
@@ -39,7 +49,6 @@ function App() {
         cardsMatched()
         resetTurns()
       } else {
-        notMatchedCards()
         setTimeout(() => {
           resetTurns()
         }, 2000)
@@ -61,13 +70,6 @@ function App() {
       })
     })
   }
-
-
-  // unmatched cards function
-  const notMatchedCards = () => {
-    console.log('try again')
-  }
-
   
   // reseting the cards
   const resetTurns = () => {
@@ -84,7 +86,7 @@ function App() {
       <p>{turns} turns</p>
       <div className='card-grid' role='grid'>
         {memoryCards.map(card => (
-          <Card key={card.id} card={card} handleChoice={handleChoice} flipped={card === choiceOne || card === choiceTwo || card.matched}/>
+          <Card key={card.id} card={card} handleChoice={handleChoice} /* flipped={flipped} flipCard={flipCard}  */flipped={card === choiceOne || card === choiceTwo || card.matched}/>
         ))}
       </div>
     </div>
