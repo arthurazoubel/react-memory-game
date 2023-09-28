@@ -33,22 +33,13 @@ function App() {
   }
 
 
-  // reseting the cards
-  const resetTurns = () => {
-    setChoiceOne(null)
-    setChoiceTwo(null)
-    setTurns(prevTurns => prevTurns + 1)
-  }
-
-
   // comparing cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
-      
       if (choiceOne === choiceTwo) {
         cardsMatched()
-        resetTurns()
         console.log(choiceOne, choiceTwo)
+        resetTurns()
       } else {
         notMatchedCards()
         resetTurns()
@@ -71,19 +62,26 @@ function App() {
     })
   }
 
-  console.log(memoryCards)
 
   // unmatched cards function
   const notMatchedCards = () => {
     console.log('try again')
   }
 
-  //console.log(choiceOne, choiceTwo, turns)
+  
+  // reseting the cards
+  const resetTurns = () => {
+    setChoiceOne(null)
+    setChoiceTwo(null)
+    setTurns(prevTurns => prevTurns + 1)
+  }
+
 
   return (
     <div className="App">
       <h1>Amnesia - The Game</h1>
       <button onClick={shuffleCards}>New Game</button>
+      <p>{turns} turns</p>
       <div className='card-grid' role='grid'>
         {memoryCards.map(card => (
           <Card key={card.id} card={card} handleChoice={handleChoice} />
