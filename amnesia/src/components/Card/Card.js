@@ -1,9 +1,11 @@
 import './Card.css'
 
-export default function Card({ card, handleChoice, flipped, flipCard }) {
+export default function Card({ card, handleChoice, flipped, disabled }) {
 
     const handleClick = () => {
-        handleChoice(card)
+        if(!disabled) {
+            handleChoice(card)
+        }
     }
 
     const accessibilityClick = (e) => {

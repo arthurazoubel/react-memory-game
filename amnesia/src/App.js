@@ -16,13 +16,16 @@ function App() {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
-  //const [flipped, setFlipped] = useState(false)
+  const [disabled, setDisabled] = useState(false)
+
 
   // shuffle cards
   const shuffleCards = () => {
     const cardImagesDoubled = cardImages.flatMap((img) => { return [img, img] }) // doubling the nuber of cards
     const shuffledCards = cardImagesDoubled.sort(() => Math.random() - 0.5) // shuflling them randomly
     const memoryCards = shuffledCards.map((card) => ({ ...card, id: Math.random() }))
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setMemoryCards(memoryCards)
     setTurns(0)
   }
@@ -34,17 +37,10 @@ function App() {
   }
 
 
-  // flipping cards
-  /* const flipCard = (card) => {
-    if(card === choiceOne || card === choiceTwo || card.matched) {
-      setFlipped(true)
-    }
-  } */
-
-
   // comparing cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true)
       if (choiceOne.src === choiceTwo.src) {
         cardsMatched()
         resetTurns()
@@ -71,14 +67,22 @@ function App() {
     })
   }
   
+
   // reseting the cards
   const resetTurns = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
     setTurns(prevTurns => prevTurns + 1)
+    setDisabled(false)
   }
 
 
+    // start game automatically
+    useEffect(() => {
+      shuffleCards()
+    }, [])
+
+    
   return (
     <div className="App">
       <h1>Amnesia - The Game</h1>
@@ -86,7 +90,13 @@ function App() {
       <p>{turns} turns</p>
       <div className='card-grid' role='grid'>
         {memoryCards.map(card => (
-          <Card key={card.id} card={card} handleChoice={handleChoice} /* flipped={flipped} flipCard={flipCard}  */flipped={card === choiceOne || card === choiceTwo || card.matched}/>
+          <Card 
+            key={card.id}
+            card={card}
+            handleChoice={handleChoice}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled}
+          />
         ))}
       </div>
     </div>
