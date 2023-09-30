@@ -3,12 +3,12 @@ import './App.css';
 import Card from './components/Card/Card';
 
 const cardImages = [
-  { "src": "/img/helmet-1.png", matched: false },
-  { "src": "/img/potion-1.png", matched: false },
-  { "src": "/img/ring-1.png", matched: false },
-  { "src": "/img/scroll-1.png", matched: false },
-  { "src": "/img/shield-1.png", matched: false },
-  { "src": "/img/sword-1.png", matched: false },
+  { "src": "/img/helmet-1.png", matched: false, alt:'helmet card' },
+  { "src": "/img/potion-1.png", matched: false, alt:'potion card' },
+  { "src": "/img/ring-1.png", matched: false, alt:'ring card' },
+  { "src": "/img/scroll-1.png", matched: false, alt:'scrolled paper card' },
+  { "src": "/img/shield-1.png", matched: false, alt:'shield card' },
+  { "src": "/img/sword-1.png", matched: false, alt:'sword card' },
 ]
 
 function App() {
@@ -82,7 +82,7 @@ function App() {
       shuffleCards()
     }, [])
 
-    
+
   return (
     <div className="App">
       <h1>Amnesia - The Game</h1>
